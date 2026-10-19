@@ -32,6 +32,12 @@ GitHub Actions checks Markdown, builds/smoke-tests the Docker development image,
 
 See [CI and Docker setup](docs/ci-and-docker.md) for local commands and workflow behavior.
 
+## Team workflow
+
+Create feature branches from `staging` and open pull requests back to `staging`. Promote reviewed, tested versions through a `staging` → `main` pull request. `main` remains the default branch; `staging` is the shared integration branch for MVP v1 and later iterations.
+
+See [branching and pull request conventions](docs/branching.md) for branch names, Conventional Commits, review expectations, and merge practices.
+
 ## Folder structure
 
 ```text

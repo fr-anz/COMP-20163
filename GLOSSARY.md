@@ -4,6 +4,10 @@ Language for a single store's shopping experience, initially demonstrated with t
 
 ## Language
 
+**MVP (v1)**:
+The first working version of the school project, developed further through later iterations toward the graded submission.
+_Avoid_: Throwaway prototype, final release
+
 **Storefront**:
 The customer-facing presentation of the store's catalog and shopping journey.
 _Avoid_: Marketplace
@@ -12,8 +16,7 @@ _Avoid_: Marketplace
 A collection of sample items used to demonstrate the storefront. Its initial thrift clothing theme does not establish the store's permanent niche.
 
 **Listing**:
-An offer to sell one unique physical garment, with its own size and condition. A listing has one unit available and becomes sold out when that garment is sold.
-_Avoid_: Multi-size product, replenishable product
+An offer to sell an item through the store. In MVP v1, each listing offers one unique garment with a fixed size and condition; later versions may revise this model.
 
 **Guest Checkout**:
 A purchase flow that does not require the shopper to create or sign in to a customer account.

@@ -1,12 +1,18 @@
-# GitHub issue drafts
+# GitHub issue backlog
 
-These nine issues are prepared for `fr-anz/COMP-20163`. They cover future team work; the first layout-focused UI milestone is described in [the implementation spec](implementation-spec.md). The current request is documentation only: do not publish issues or start implementation. When publication is requested, use the existing `enhancement` label, leave assignees unset, and replace draft dependency references with actual GitHub issue links.
+These nine issues are published in [fr-anz/COMP-20163](https://github.com/fr-anz/COMP-20163/issues). They cover future team implementation; the first layout-focused UI milestone is described in [the implementation spec](implementation-spec.md). All are labeled `enhancement` and left unassigned. Use the existing GitHub issues for tracking rather than creating duplicates.
+
+These issues target MVP v1: the first working release that will be retained and improved through subsequent iterations toward the graded submission. The layout-only UI pass is an earlier review step, not the full scope of these issues.
 
 The initial layouts provide placeholders and light navigation only. Functional search/filtering, cart updates, checkout validation, payment simulation, and real model rendering are assigned below rather than assumed to exist already. Preserve the layout milestone's better-ui constraints when adding functionality: no eyebrows, restrained solid surfaces, and no decorative visual filler.
 
-PHP/Philippines, the internal simulator, and the exact inventory-allocation timing remain proposed defaults in [the product brief](product-brief.md); resolve them before implementing the affected tasks. The accepted scope already includes one-of-one listings, guest checkout, simulated/sandbox payments, domestic shipping, pickup, and administrator-only management.
+PHP/Philippines, the internal simulator, and the exact inventory-allocation timing remain proposed defaults in [the product brief](product-brief.md); resolve them before implementing the affected tasks. The accepted MVP v1 scope already includes one-of-one listings, guest checkout, simulated/sandbox payments, domestic shipping, pickup, and administrator-only management.
+
+The one-of-one listing and single-unit inventory requirements in these issues define v1's scope, as recorded in [ADR 0001](adr/0001-one-of-one-listings.md). Later iterations may revise the niche, variants, or inventory model as requirements develop; continue improving the existing application rather than treating v1 as disposable work.
 
 ## 1. Define storefront API contracts and seed the demo catalog
+
+GitHub issue: [#1](https://github.com/fr-anz/COMP-20163/issues/1).
 
 Laravel initialization, Composer dependencies, a local SQLite setup, health/readiness routes, starter tests, and CI are already established. Document the remaining storefront contracts and add the demo catalog seed so frontend and backend feature work can proceed independently. Do not reinitialize the application.
 
@@ -25,6 +31,8 @@ Dependencies: none.
 
 ## 2. Implement administrator authentication and protect management endpoints
 
+GitHub issue: [#2](https://github.com/fr-anz/COMP-20163/issues/2).
+
 Only an administrator manages the store. Add administrator sign-in/sign-out without public customer registration or additional staff roles.
 
 Likely files: `backend/app/Http/`, policies, authentication configuration, routes, administrator seed/setup instructions, and feature tests.
@@ -36,11 +44,13 @@ Acceptance criteria:
 - Guest catalog and checkout access remain available without a customer account.
 - API tests cover permitted and forbidden access, invalid login, and session/token invalidation on logout.
 
-Dependencies: draft 1.
+Dependencies: [#1](https://github.com/fr-anz/COMP-20163/issues/1).
 
 ## 3. Implement one-of-one listings, catalog queries, and administrator asset management
 
-Implement catalog persistence and protected management of unique thrift garments and their photos/sample 3D assets. A listing is one physical garment, not a product with size variants.
+GitHub issue: [#3](https://github.com/fr-anz/COMP-20163/issues/3).
+
+Implement catalog persistence and protected management of unique thrift garments and their photos/sample 3D assets for MVP v1. Within v1, a listing represents one physical garment with a fixed size; later iterations may revise this catalog model as requirements develop.
 
 Likely files: `backend/app/Models/`, controllers, requests, resources, policies, storage configuration, migrations, and catalog feature tests.
 
@@ -54,11 +64,13 @@ Acceptance criteria:
 - Exactly one demo listing is seeded; tests may create additional fixtures solely to exercise behavior.
 - Tests cover invalid fields/media, authorization, filtering, and one-unit constraints.
 
-Dependencies: drafts 1 and 2.
+Dependencies: [#1](https://github.com/fr-anz/COMP-20163/issues/1), [#2](https://github.com/fr-anz/COMP-20163/issues/2).
 
 ## 4. Implement guest cart persistence with one-unit constraints
 
-Implement a guest cart that can survive refresh without requiring a customer account. The initial UI provides a static cart layout, not an existing functional cart.
+GitHub issue: [#4](https://github.com/fr-anz/COMP-20163/issues/4).
+
+Implement an MVP guest cart that can survive refresh without requiring a customer account. The initial UI provides a static cart layout, not an existing functional cart. Its one-unit constraint is specific to v1.
 
 Likely files: backend cart models/services/controllers/routes and cart feature tests. Document the agreed cart identifier/session contract in `docs/api.md`.
 
@@ -70,9 +82,11 @@ Acceptance criteria:
 - Prices and totals come from server records, never trusted client values.
 - Tests cover persistence, guest isolation, repeated adds, removal, and stale availability.
 
-Dependencies: drafts 1 and 3.
+Dependencies: [#1](https://github.com/fr-anz/COMP-20163/issues/1), [#3](https://github.com/fr-anz/COMP-20163/issues/3).
 
 ## 5. Add domestic shipping and pickup options with server-calculated totals
+
+GitHub issue: [#5](https://github.com/fr-anz/COMP-20163/issues/5).
 
 Support the two agreed fulfillment methods with configurable demonstration values rather than live carrier integrations.
 
@@ -86,11 +100,13 @@ Acceptance criteria:
 - Customer-facing responses clearly identify demonstration delivery values; no real carrier booking or delivery promises are made.
 - Tests cover both methods, conditional address validation, and total calculations.
 
-Dependencies: draft 1. Coordinate fields with drafts 4 and 6.
+Dependencies: [#1](https://github.com/fr-anz/COMP-20163/issues/1). Coordinate fields with [#4](https://github.com/fr-anz/COMP-20163/issues/4), [#6](https://github.com/fr-anz/COMP-20163/issues/6).
 
 ## 6. Implement simulated guest checkout and prevent duplicate garment sales
 
-Create orders using a school-project payment simulator. Never collect card details or move real money. Enforce the unique-garment inventory rule even when two guests attempt checkout together.
+GitHub issue: [#6](https://github.com/fr-anz/COMP-20163/issues/6).
+
+Create orders using a school-project payment simulator. Never collect card details or move real money. Enforce MVP v1's unique-garment inventory rule even when two guests attempt checkout together; later inventory changes are a separate decision.
 
 Likely files: backend order/payment-simulation services, models, migrations, checkout requests/controllers/resources, and feature/integration tests.
 
@@ -105,9 +121,11 @@ Acceptance criteria:
 - Restrict guest order access using an appropriately scoped opaque confirmation mechanism; do not expose orders through guessable identifiers alone.
 - Tests cover success/failure, empty/stale carts, tampered prices, duplicate submissions, concurrent purchase attempts, and guest order privacy.
 
-Dependencies: drafts 3, 4, and 5.
+Dependencies: [#3](https://github.com/fr-anz/COMP-20163/issues/3), [#4](https://github.com/fr-anz/COMP-20163/issues/4), [#5](https://github.com/fr-anz/COMP-20163/issues/5).
 
 ## 7. Build administrator screens for catalog, assets, and orders
+
+GitHub issue: [#7](https://github.com/fr-anz/COMP-20163/issues/7).
 
 Give the administrator a minimal interface to maintain the school project's catalog and inspect orders. These screens are separate from the initial five customer layouts.
 
@@ -122,9 +140,11 @@ Acceptance criteria:
 - Do not add customer registration, marketplace sellers, or employee roles.
 - Verify an administrator can update a listing and inspect a simulated order; verify guests cannot access protected data or operations.
 
-Dependencies: drafts 2, 3, and 6.
+Dependencies: [#2](https://github.com/fr-anz/COMP-20163/issues/2), [#3](https://github.com/fr-anz/COMP-20163/issues/3), [#6](https://github.com/fr-anz/COMP-20163/issues/6).
 
 ## 8. Implement storefront interactions and connect the customer layouts to APIs
+
+GitHub issue: [#8](https://github.com/fr-anz/COMP-20163/issues/8).
 
 Add the functional behavior intentionally deferred from the initial layouts, using the team's APIs while preserving the agreed content placement, restrained styling, and single demo listing.
 
@@ -132,7 +152,7 @@ Likely files: `frontend/src/services/`, stores, composables, customer pages, 3D 
 
 Acceptance criteria:
 
-- Home/catalog/detail use API listing data and the listing's image/model references. Connect the functional viewer from draft 9 to the product detail layout.
+- Home/catalog/detail use API listing data and the listing's image/model references. Connect the functional viewer from [#9](https://github.com/fr-anz/COMP-20163/issues/9) to the product detail layout.
 - Make the laid-out search/filter controls functional, including a no-match state and reset without inventing more demo listings.
 - Cart refresh/add/remove use the guest-cart contract and preserve the one-unit rule.
 - Implement checkout field validation, API fulfillment choices, conditional fields, authoritative totals, and the simulated payment/order flow.
@@ -141,13 +161,15 @@ Acceptance criteria:
 - Payments remain clearly labeled as simulated, with no real card fields or live-payment calls.
 - Verify complete shipping and pickup journeys, refresh behavior, failure recovery, and a competing checkout that sells the only garment first.
 
-Dependencies: drafts 3, 4, 5, 6, and 9; the initial customer layouts must exist.
+Dependencies: [#3](https://github.com/fr-anz/COMP-20163/issues/3), [#4](https://github.com/fr-anz/COMP-20163/issues/4), [#5](https://github.com/fr-anz/COMP-20163/issues/5), [#6](https://github.com/fr-anz/COMP-20163/issues/6), [#9](https://github.com/fr-anz/COMP-20163/issues/9); the initial customer layouts must exist.
 
 ## 9. Replace the product viewer placeholder with a rotatable sample garment model
 
+GitHub issue: [#9](https://github.com/fr-anz/COMP-20163/issues/9).
+
 The initial product detail screen reserves space for a viewer without loading a real model. Implement on-screen model inspection as a separate functional task; no AR placement or virtual try-on is required.
 
-Likely files: `frontend/src/components/catalog/`, the product detail page, sample model assets, and asset attribution documentation. Coordinate the supported model format with draft 3.
+Likely files: `frontend/src/components/catalog/`, the product detail page, sample model assets, and asset attribution documentation. Coordinate the supported model format with [#3](https://github.com/fr-anz/COMP-20163/issues/3).
 
 Acceptance criteria:
 
@@ -158,4 +180,4 @@ Acceptance criteria:
 - Avoid decorative entrance animations or auto-rotation; honor reduced-motion preferences for any optional movement.
 - Verify model loading, pointer/touch and keyboard controls, reset, load failure, and responsive placement.
 
-Dependencies: the product detail layout and an agreed sample asset/format. Development can begin with a local asset; API-provided references are connected in draft 8 after draft 3.
+Dependencies: the product detail layout and an agreed sample asset/format. Development can begin with a local asset; API-provided references are connected in [#8](https://github.com/fr-anz/COMP-20163/issues/8) after [#3](https://github.com/fr-anz/COMP-20163/issues/3).

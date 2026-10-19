@@ -2,7 +2,7 @@
 
 ## Current scope
 
-Vue 3/Vite/TypeScript and Laravel 13 are initialized. CI checks documentation, builds the development toolchain image, builds/type-checks Vue, and runs Laravel's starter tests. Framework initialization does not implement the planned storefront UI or publish the team issue drafts.
+Vue 3/Vite/TypeScript and Laravel 13 are initialized. CI checks documentation, builds the development toolchain image, builds/type-checks Vue, and runs Laravel's starter tests. The planned storefront UI and commerce features remain separate work, tracked in [the published GitHub backlog](github-issue-drafts.md).
 
 ## GitHub Actions
 
