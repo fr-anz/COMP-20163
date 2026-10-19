@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  documentation:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      - name: Lint Markdown
+        run: npx --yes markdownlint-cli2@0.23.3
+
+  docker:
+    name: Docker build and application checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build development image
+        run: docker build --pull --tag ecommerce-dev:ci .
+
+      - name: Verify development tools and non-root user
+        run: |
+          docker run --rm ecommerce-dev:ci bash -euc '
+            node --version
+            npm --version
+            npx --version
+            php --version
+            composer --version
+            git --version
+            test "$(id -u)" -ne 0
+            test -w /workspace
+            test -f /workspace/frontend/README.md
+            test -f /workspace/backend/README.md
+          '
+
+      - name: Build and type-check Vue
+        run: |
+          docker run --rm ecommerce-dev:ci bash -euc '
+            cd frontend
+            npm ci
+            npm run build
+          '
+
+      - name: Validate dependencies and test Laravel
+        run: |
+          docker run --rm ecommerce-dev:ci bash -euc '
+            cd backend
+            composer validate --strict
+            composer install --no-interaction --prefer-dist --no-progress
+            cp .env.example .env
+            php artisan key:generate --no-interaction
+            php artisan test
+          '
+
+      - name: Verify baseline PHP extensions
+        run: |
+          docker run --rm ecommerce-dev:ci php -r '
+            foreach (["ctype", "curl", "dom", "fileinfo", "mbstring", "openssl", "pdo_sqlite", "session", "tokenizer", "xml"] as $extension) {
+                if (!extension_loaded($extension)) {
+                    fwrite(STDERR, "Missing PHP extension: $extension\n");
+                    exit(1);
+                }
+            }
+          '

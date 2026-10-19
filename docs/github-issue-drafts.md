@@ -6,19 +6,19 @@ The initial layouts provide placeholders and light navigation only. Functional s
 
 PHP/Philippines, the internal simulator, and the exact inventory-allocation timing remain proposed defaults in [the product brief](product-brief.md); resolve them before implementing the affected tasks. The accepted scope already includes one-of-one listings, guest checkout, simulated/sandbox payments, domestic shipping, pickup, and administrator-only management.
 
-## 1. Initialize the Laravel API and document storefront contracts
+## 1. Define storefront API contracts and seed the demo catalog
 
-The backend currently contains folder documentation only. Initialize a runnable Laravel API and document the minimum contracts that let frontend and backend work proceed independently.
+Laravel initialization, Composer dependencies, a local SQLite setup, health/readiness routes, starter tests, and CI are already established. Document the remaining storefront contracts and add the demo catalog seed so frontend and backend feature work can proceed independently. Do not reinitialize the application.
 
 Likely files: `backend/` framework/configuration files, `.env.example`, migrations and seeders, `backend/README.md`, and `docs/api.md`. Avoid changing customer layouts.
 
 Acceptance criteria:
 
-- A documented local setup starts the API against a supported local database; credentials are excluded from version control.
+- Preserve the documented local setup and starter checks; credentials remain excluded from version control.
 - Document request/response examples for catalog, cart, fulfillment options, guest checkout, orders, and administrator access, including validation and unavailable-item errors.
 - Prices use PHP and integer minor units at the API boundary. The backend calculates authoritative totals.
 - Seed exactly one demo garment. Its fixed size, condition, measurements, price, availability, photos, and sample model reference are represented.
-- State the selected database and authentication approach so dependent tasks can implement against them.
+- Record that SQLite is the current development/test default and establish the administrator authentication approach for dependent tasks. A production database choice remains open.
 - Setup and basic API health are verified, with repeatable database migration/seed instructions.
 
 Dependencies: none.

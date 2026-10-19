@@ -2,11 +2,11 @@
 
 ## Goal
 
-Define a minimal layout-first UI milestone for a single-store thrift clothing school project. Prioritize screen structure and content placement; keep functional implementation in the team's backlog. The current request is documentation only: do not build the UI or publish GitHub issues yet.
+Define a minimal layout-first UI milestone for a single-store thrift clothing school project. Prioritize screen structure and content placement; keep functional implementation in the team's backlog. UI work remains documentation only: do not build the UI or publish GitHub issues yet. Separately requested CI/Docker infrastructure is documented in [CI and Docker](ci-and-docker.md).
 
 ## Current Behavior
 
-The repository contains README files describing a Vue storefront and Laravel API folder structure, plus planning documents and issue drafts. No frameworks, dependencies, application code, manifests, or tests are installed. The GitHub repository is `fr-anz/COMP-20163`, with no existing issues at inspection time.
+The repository contains initialized Vue 3/Vite/TypeScript and Laravel 13 applications, preserved folder documentation, planning documents and issue drafts, and CI/Docker tooling. Dependency manifests and lockfiles are present. Vue displays a readiness page; Laravel returns readiness JSON at `/` and serves its standard health route at `/up`. CI checks Markdown, builds the Docker development image, builds/type-checks Vue, and runs Laravel starter tests. Storefront layouts and commerce behavior remain unimplemented.
 
 ## Target Behavior
 
@@ -44,7 +44,7 @@ Current documentation work involves this spec, `docs/product-brief.md`, `docs/gi
 
 Future UI implementation will likely touch:
 
-- `frontend/README.md`, `frontend/package.json`, and framework configuration: minimal Vue setup and start/build instructions.
+- `frontend/README.md`, `frontend/package.json`, and framework configuration: retain the existing minimal Vue setup and its start/build instructions.
 - `frontend/src/pages/` and `frontend/src/layouts/`: the five customer screens and shared shell.
 - `frontend/src/components/common/`, `catalog/`, and `cart/`: only small components needed by the layouts.
 - `frontend/src/router/`: navigation between layout previews.
@@ -54,21 +54,21 @@ Stores, API services, real model assets, and `backend/` belong to later function
 
 ## Files To Avoid
 
-- For the current documentation-only request, do not change application folders, install dependencies, start preview servers, or publish GitHub issues.
+- This spec authorizes no storefront layout/feature implementation or GitHub issue publication on its own. The separately requested framework/dependency initialization is already established.
 - During the later layout milestone, do not initialize the backend or implement functional backlog items.
 - Do not modify `.git/`, unrelated global settings, or unrelated repository documentation.
 - Do not add live payment configuration, customer accounts, marketplace features, additional staff roles, or extra demo listings.
 
 ## Assumptions
 
-The following defaults remain proposed rather than confirmed: PHP means Philippine pesos; the domestic market is the Philippines; the documented Vue/Laravel direction remains suitable; and an internal payment simulator is sufficient for the later functional milestone. A temporary brand, sample shipping charge, and pickup location must be clearly identified as demonstration content.
+The following product defaults remain proposed rather than confirmed: PHP means Philippine pesos; the domestic market is the Philippines; and an internal payment simulator is sufficient for the later functional milestone. Vue/Laravel are now initialized. A temporary brand, sample shipping charge, and pickup location must be clearly identified as demonstration content.
 
 For the backend backlog, propose that cart membership does not reserve inventory and successful simulated checkout atomically sells each garment. A competing checkout must fail without confirming a second order or charging anything. Real 3D model sourcing and its rendering library are later implementation choices, subject to reuse rights and compatibility checks. These decisions do not need implementation to review content placement.
 
 ## Step-by-Step Implementation
 
-1. Current step: revise documentation only. Keep the issue drafts local and do not begin application work.
-2. When the user requests UI implementation, initialize the minimum Vue setup in `frontend/`, retaining useful scaffold documentation and adding start/build instructions.
+1. Keep the UI plan and issue drafts local until implementation/publication is requested. Framework/dependency setup does not begin storefront feature work.
+2. When the user requests UI implementation, use the existing Vue setup in `frontend/` and its documented start/build commands; do not run a new framework generator over it.
 3. Establish the shared header, navigation, footer, type hierarchy, spacing, and restrained visual treatment using the constraints above.
 4. Lay out the five screens using the same single garment fixture. Prioritize product facts, primary actions, and summaries over decorative sections.
 5. Add lightweight links and presentation toggles needed for review. Use placeholder imagery and a clearly labeled viewer area; use static cart/checkout examples instead of implementing commerce logic.
@@ -90,7 +90,7 @@ For the backend backlog, propose that cart membership does not reserve inventory
 For the current documentation-only work:
 
 - Confirm that the brief, this spec, and issue drafts agree about layout-first scope and deferred functionality.
-- Confirm that no application code or dependencies were added and no GitHub issues were published.
+- Confirm that no storefront/commerce behavior or GitHub issue publication is introduced by UI documentation edits. The existing framework scaffolds and dependencies are authorized infrastructure work.
 
 When layout implementation is requested:
 
@@ -103,4 +103,4 @@ When layout implementation is requested:
 
 ## Handoff Prompt for Implementer
 
-Use this spec, `docs/product-brief.md`, and `GLOSSARY.md` to plan the first UI milestone. The current instruction is documentation only: do not write application code, install dependencies, start a preview, or publish issues. When subsequently asked to implement, create only five responsive customer layouts with one sample thrift garment, placeholder imagery and a labeled 3D viewer area, simple navigation, and shipping/pickup presentation. Focus on content placement and apply the better-ui skill with no eyebrows, solid backgrounds, restrained surfaces, and minimal motion. Leave search/filter logic, cart behavior, validation, actual model rendering/rotation, simulated payments, backend services, and administration to the team backlog. Run only checks appropriate to the stage being performed.
+Use this spec, `docs/product-brief.md`, and `GLOSSARY.md` to plan the first UI milestone. Vue and Laravel scaffolds, dependencies, and CI are already set up; do not regenerate them or treat this spec alone as a request to build the storefront or publish issues. When subsequently asked to implement, create only five responsive customer layouts with one sample thrift garment, placeholder imagery and a labeled 3D viewer area, simple navigation, and shipping/pickup presentation. Focus on content placement and apply the better-ui skill with no eyebrows, solid backgrounds, restrained surfaces, and minimal motion. Leave search/filter logic, cart behavior, validation, actual model rendering/rotation, simulated payments, backend services, and administration to the team backlog. Run only checks appropriate to the stage being performed.
