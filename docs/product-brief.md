@@ -3,8 +3,9 @@
 ## Confirmed direction
 
 - MVP v1 is the first working release of the school project, retained and improved through subsequent iterations toward the graded submission. The nine published issues describe functional MVP work; the layout-only UI pass is an earlier review step.
-- Storefront UI work remains documentation only; its layouts are not implemented yet. The nine team issues are published and linked in [the GitHub backlog](github-issue-drafts.md). Framework/dependency initialization and CI/Docker tooling are established separately; see [CI and Docker](ci-and-docker.md).
-- First UI milestone, when requested: minimal layouts and content placement for a clickable layout preview. Functional MVP behavior belongs in implementation work for the team.
+- The first UI milestone is implemented as five barebones, responsive customer layouts with clickable navigation. The nine functional team issues remain linked in [the GitHub backlog](github-issue-drafts.md). Framework/dependency initialization and CI/Docker tooling are established separately; see [CI and Docker](ci-and-docker.md).
+- This UI milestone focuses on layouts and content placement. Functional MVP behavior belongs in implementation work for the team.
+- All visible copy uses lorem ipsum for layout review, including the wordmark, navigation, product details, and summaries. Nonvisual accessible labels retain meaningful control names.
 - Customer screens: home, catalog, product detail with a designated 3D viewer area, cart, and checkout preview, including mobile layouts. Use static examples for relevant states rather than building a complete state system.
 - Use one consistent garment fixture and placeholders. Limit interaction to navigation and presentation changes needed to review the layouts; search/filter logic, cart mutation, checkout validation, and payment simulation are later tasks.
 - Track backend and other functional work in the existing GitHub issues, with acceptance criteria and dependency links.
@@ -18,9 +19,9 @@
 - This is a school project. Payments are simulated or use a sandbox; no live payment collection is required.
 - Checkout offers domestic shipping and pickup.
 - Management access is limited to an administrator. Additional staff roles are out of scope for now. Administrator screens belong in the team backlog, outside the current customer-facing visual milestone.
-- Visual direction: warm minimalism, ivory and natural tones, generous spacing, clear navigation, and restrained accents.
+- Visual direction: the user now requests copying [Bellows Film Lab](https://bellowsfilmlab.com/)'s page layout and navbar, retaining a different masthead and omitting the automatic video popup. Use white surfaces, gray image areas, a four-column desktop/two-column mobile product grid, compact captions, and the reference's section order with photo/map placeholders. Keep exactly one garment in the grid. Match the green floating Menu/Bag controls, blue Search, and separate green pill menu links; on mobile the closed navbar is a centered Menu button, with links, Bag, and Search revealed when opened.
 - Apply the better-ui skill when implementing layouts. No eyebrows above headings; use solid backgrounds and simple dividers. Avoid excessive gradients, glows, heavy shadows, oversized rounded cards, decorative badges, unnecessary animation, and filler sections. Preserve normal labels, breadcrumbs, and useful product metadata.
-- Vue 3/Vite/TypeScript and Laravel 13 are initialized with dependency lockfiles and starter checks. They expose only readiness pages; no storefront layouts or commerce endpoints are implemented.
+- Vue 3/Vite/TypeScript, Vue Router, and Laravel 13 have dependency lockfiles and starter checks. Vue provides the layout preview; Laravel exposes readiness endpoints. No commerce endpoints are implemented.
 
 ## Proposed defaults for final review
 
@@ -37,4 +38,4 @@ See [the implementation spec](implementation-spec.md) and [GitHub issue backlog]
 
 ## Planning status
 
-The UI milestone is planned as minimal layouts and content placement; storefront/commerce implementation has not begun. The nine GitHub issues are published with acceptance checklists, dependency links, the `enhancement` label, and no assignees. Framework initialization, locked dependencies, and CI/Docker tooling are established separately. Confirmed direction above remains distinct from the proposed product defaults awaiting review.
+The initial layout milestone is implemented with lorem ipsum copy, one illustrated garment placeholder, static bag/checkout examples, and local image/viewer and shipping/pickup toggles. Search, filters, bag mutation, and simulated checkout remain disabled placeholders. See the [frontend guide](../frontend/README.md#layout-preview) for routes and limitations. The nine GitHub issues retain the functional MVP acceptance criteria. Framework initialization, locked dependencies, and CI/Docker tooling are established separately. Confirmed direction above remains distinct from the proposed product defaults awaiting review.

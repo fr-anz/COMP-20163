@@ -2,15 +2,15 @@
 
 ## Goal
 
-Define a minimal layout-first UI milestone for a single-store thrift clothing school project. Prioritize screen structure and content placement; keep functional implementation in the team's published GitHub backlog. UI work remains documentation only: the storefront layouts are not implemented yet. Separately requested CI/Docker infrastructure is documented in [CI and Docker](ci-and-docker.md).
+Define the minimal layout-first UI milestone for a single-store thrift clothing school project. Prioritize screen structure and content placement; keep functional implementation in the team's published GitHub backlog. The five barebones layouts are now implemented following the user's request to begin prototyping. Separately requested CI/Docker infrastructure is documented in [CI and Docker](ci-and-docker.md).
 
 ## Current Behavior
 
-The repository contains initialized Vue 3/Vite/TypeScript and Laravel 13 applications, preserved folder documentation, planning documents and a linked GitHub issue backlog, and CI/Docker tooling. Dependency manifests and lockfiles are present. Vue displays a readiness page; Laravel returns readiness JSON at `/` and serves its standard health route at `/up`. CI checks Markdown, builds the Docker development image, builds/type-checks Vue, and runs Laravel starter tests. Storefront layouts and commerce behavior remain unimplemented.
+The repository contains initialized Vue 3/Vite/TypeScript and Laravel 13 applications, preserved folder documentation, planning documents and a linked GitHub issue backlog, and CI/Docker tooling. Dependency manifests and lockfiles are present. Vue now provides home, catalog, product detail, sample bag, and guest checkout layouts using Vue Router hash history and one shared garment fixture. Navigation, image/viewer presentation, measurements disclosure, and shipping/pickup presentation work; commerce actions are labeled placeholders. Laravel returns readiness JSON at `/` and serves its standard health route at `/up`. CI checks Markdown, builds the Docker development image, builds/type-checks Vue, and runs Laravel starter tests. Commerce behavior remains unimplemented. See the [frontend guide](../frontend/README.md#layout-preview).
 
 ## Target Behavior
 
-When implementation is subsequently requested, the first UI milestone should provide responsive home, catalog, product detail, cart, and checkout preview layouts. The goal is to review hierarchy, spacing, content placement, and the shopping flow with minimal implementation.
+The first UI milestone provides responsive home, catalog, product detail, cart, and checkout preview layouts. The goal is to review hierarchy, spacing, content placement, and the shopping flow with minimal implementation.
 
 The layout-only UI milestone is an early review step toward MVP v1, the first working release. The nine published issues cover functional MVP behavior, and the working application will be retained and improved through later iterations toward the graded submission. One-of-one garments, fixed sizes, and single-unit inventory define v1's scope and may be revisited as later versions' requirements develop; see [ADR 0001](adr/0001-one-of-one-listings.md).
 
@@ -32,32 +32,36 @@ The layout-only UI milestone is an early review step toward MVP v1, the first wo
 ### Visual constraints
 
 - Apply the `better-ui` skill when UI implementation begins. Keep its polish subordinate to the minimal layout scope.
-- Use warm ivory/natural surfaces, readable dark text, restrained accents, consistent alignment, and a small spacing/type scale.
+- Follow the user's latest request to copy [Bellows Film Lab](https://bellowsfilmlab.com/)'s layout and navbar, except for the masthead and automatic video popup. Use white surfaces, dark text, gray image areas, green navigation pills, and a blue search control. Keep a different temporary wordmark.
+- Reproduce the home section order: centered shop heading and compact category controls; full-width four-column desktop/two-column mobile product grid; three image areas; store introduction; gallery; FAQ split; location area; footer columns. Use lorem ipsum copy and photo/map placeholders. Keep exactly one garment in the first grid cell without inventing extra listings.
+- Match the desktop navbar: Menu at bottom left, Search in the center, and Bag/count at bottom right. Opening Menu reveals separate green pill links with circular active markers, with no boxed panel. On mobile, show a centered Menu button when closed; reveal wrapping pill links including Bag, plus Search above the button, when opened. Preserve Escape, keyboard links, section navigation, and page-end clearance.
 - No eyebrows: do not place small promotional/category labels above headings. Normal breadcrumbs, form labels, and useful garment metadata remain appropriate.
 - Use solid backgrounds for this pass. Avoid excessive gradients, decorative glows, heavy shadows, oversized rounded cards, bento grids, redundant badges, and repeated boxed sections.
-- Use whitespace and simple dividers to group content. Put imagery and product facts where a shopper needs them, without decorative statistics, trust strips, or filler sections.
+- Use whitespace and simple dividers to group content. The requested reference sections use barebones placeholders for placement review; do not add unrelated statistics, trust strips, or additional sections.
 - Avoid unnecessary motion. If interaction transitions are introduced, name the changing properties, gate movement behind reduced-motion preferences, and use the skill's exact enabled-button press value of `0.96` over `150ms` with `ease-out`.
 - Keep any icons consistent, outlined by default, and colored with `currentColor`. Restrict hover-only styling to hover-capable pointers; preserve visible keyboard focus.
+- The user requests lorem ipsum for all visible copy, including navigation, headings, form labels, product details, and summaries. Keep meaningful nonvisual accessible labels and working presentation toggles.
 - Use temporary brand/copy and image placeholders. Custom illustration, photography, asset acquisition, and a detailed design system are not required to review these layouts.
 
 ## Relevant Files
 
-Current documentation work involves this spec, `docs/product-brief.md`, `docs/github-issue-drafts.md`, and the documentation index. `GLOSSARY.md` and `docs/adr/` retain agreed domain language and decisions.
+This spec, `docs/product-brief.md`, and `docs/github-issue-drafts.md` define the layout scope and functional backlog. `GLOSSARY.md` and `docs/adr/` retain agreed domain language and decisions.
 
-Future UI implementation will likely touch:
+Layout implementation uses:
 
 - `frontend/README.md`, `frontend/package.json`, and framework configuration: retain the existing minimal Vue setup and its start/build instructions.
 - `frontend/src/pages/` and `frontend/src/layouts/`: the five customer screens and shared shell.
 - `frontend/src/components/common/`, `catalog/`, and `cart/`: only small components needed by the layouts.
 - `frontend/src/router/`: navigation between layout previews.
+- `frontend/src/fixtures/garment.ts`: the single demonstration garment shared by all pages.
 - `frontend/src/assets/` and `frontend/public/`: simple placeholder assets if needed.
 
 Stores, API services, real model assets, and `backend/` belong to later functional tasks. Do not create them speculatively for layout review.
 
 ## Files To Avoid
 
-- This spec alone authorizes no storefront layout/feature implementation. Framework/dependency initialization is established and the nine GitHub issues are already published; do not recreate them.
-- During the later layout milestone, do not initialize the backend or implement functional backlog items.
+- The user authorized the barebones layout implementation. This milestone does not authorize functional backlog items. Framework/dependency initialization is established and the nine GitHub issues are already published; do not recreate them.
+- During layout work, do not initialize the backend or implement functional backlog items.
 - Do not modify `.git/`, unrelated global settings, or unrelated repository documentation.
 - Do not add live payment configuration, customer accounts, marketplace features, additional staff roles, or extra demo listings.
 
@@ -69,8 +73,8 @@ For the backend backlog, propose that cart membership does not reserve inventory
 
 ## Step-by-Step Implementation
 
-1. Keep the UI plan separate from feature implementation until implementation is requested. The team issues are already published; use their existing links in the backlog. Framework/dependency setup does not begin storefront feature work.
-2. When the user requests UI implementation, use the existing Vue setup in `frontend/` and its documented start/build commands; do not run a new framework generator over it.
+1. Keep layout review separate from functional MVP implementation. The team issues are already published; use their existing links in the backlog.
+2. Use the existing Vue setup in `frontend/` and its documented start/build commands; do not run a new framework generator over it.
 3. Establish the shared header, navigation, footer, type hierarchy, spacing, and restrained visual treatment using the constraints above.
 4. Lay out the five screens using the same single garment fixture. Prioritize product facts, primary actions, and summaries over decorative sections.
 5. Add lightweight links and presentation toggles needed for review. Use placeholder imagery and a clearly labeled viewer area; use static cart/checkout examples instead of implementing commerce logic.
@@ -89,12 +93,12 @@ For the backend backlog, propose that cart membership does not reserve inventory
 
 ## Testing Checklist
 
-For the current documentation-only work:
+For scope reconciliation:
 
 - Confirm that the brief, this spec, and linked GitHub backlog agree about layout-first scope and deferred functionality.
-- Confirm that UI documentation edits introduce no storefront/commerce behavior or duplicate issues. Framework scaffolds, dependencies, and issue publication have been requested separately.
+- Confirm that layout work introduces no functional commerce behavior or duplicate issues. Framework scaffolds, dependencies, and issue publication have been requested separately.
 
-When layout implementation is requested:
+For layout implementation and revisions:
 
 - Run the documented frontend build and manually inspect all five screens on desktop and mobile.
 - Check content order, spacing, long-text wrapping, overflow, clear actions, and consistent placeholder garment data.
@@ -105,4 +109,4 @@ When layout implementation is requested:
 
 ## Handoff Prompt for Implementer
 
-Use this spec, `docs/product-brief.md`, and `GLOSSARY.md` to plan the first UI milestone. Vue and Laravel scaffolds, dependencies, and CI are already set up; do not regenerate them or treat this spec alone as a request to build the storefront. The nine team issues are already published; use their existing links in `docs/github-issue-drafts.md` rather than recreating them. When subsequently asked to implement, create only five responsive customer layouts with one sample thrift garment, placeholder imagery and a labeled 3D viewer area, simple navigation, and shipping/pickup presentation. Focus on content placement and apply the better-ui skill with no eyebrows, solid backgrounds, restrained surfaces, and minimal motion. Leave search/filter logic, cart behavior, validation, actual model rendering/rotation, simulated payments, backend services, and administration to the team backlog. Run only checks appropriate to the stage being performed.
+Use this spec, `docs/product-brief.md`, and `GLOSSARY.md` to review and refine the implemented barebones layouts. Vue and Laravel scaffolds, dependencies, and CI are already set up; do not regenerate them. The nine team issues are already published; use their existing links in `docs/github-issue-drafts.md` rather than recreating them. Keep five responsive customer layouts with one sample thrift garment, placeholder imagery and a labeled 3D viewer area, simple navigation, and shipping/pickup presentation. The latest direction is to copy the supplied Bellows Film Lab page layout and navbar, keeping a different masthead and omitting the automatic video popup. Follow the detailed visual constraints above, including its section order and desktop/mobile navigation. Apply better-ui with no eyebrows, solid backgrounds, and minimal motion. Leave search/filter logic, cart behavior, validation, actual model rendering/rotation, simulated payments, backend services, and administration to the team backlog. Run only checks appropriate to the stage being performed.
