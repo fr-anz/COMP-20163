@@ -6,7 +6,7 @@ These issues target MVP v1: the first working release that will be retained and 
 
 The initial layouts provide placeholders and light navigation only. Functional search/filtering, cart updates, checkout validation, payment simulation, and real model rendering are assigned below rather than assumed to exist already. Preserve the layout milestone's better-ui constraints when adding functionality: no eyebrows, restrained solid surfaces, and no decorative visual filler.
 
-PHP/Philippines, the internal simulator, and the exact inventory-allocation timing remain proposed defaults in [the product brief](product-brief.md); resolve them before implementing the affected tasks. The accepted MVP v1 scope already includes one-of-one listings, guest checkout, simulated/sandbox payments, domestic shipping, pickup, and administrator-only management.
+PHP/Philippines, the internal simulator, and selling inventory on successful simulated checkout were confirmed for issue #1. See [the API contracts](api.md) for the agreed request/response shapes and dependent implementation work. The accepted MVP v1 scope includes one-of-one listings, guest checkout, domestic shipping, pickup, and administrator-only management.
 
 The one-of-one listing and single-unit inventory requirements in these issues define v1's scope, as recorded in [ADR 0001](adr/0001-one-of-one-listings.md). Later iterations may revise the niche, variants, or inventory model as requirements develop; continue improving the existing application rather than treating v1 as disposable work.
 
@@ -17,6 +17,8 @@ GitHub issue: [#1](https://github.com/fr-anz/COMP-20163/issues/1).
 Laravel initialization, Composer dependencies, a local SQLite setup, health/readiness routes, starter tests, and CI are already established. Document the remaining storefront contracts and add the demo catalog seed so frontend and backend feature work can proceed independently. Do not reinitialize the application.
 
 Likely files: `backend/` framework/configuration files, `.env.example`, migrations and seeders, `backend/README.md`, and `docs/api.md`. Avoid changing customer layouts.
+
+Implementation: [API contracts](api.md), the listing migration/model, and the repeatable one-garment seed are present. [The backend guide](../backend/README.md) documents setup and verification. Commerce endpoints remain owned by the dependent issues below.
 
 Acceptance criteria:
 

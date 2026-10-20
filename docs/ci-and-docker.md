@@ -2,7 +2,7 @@
 
 ## Current scope
 
-Vue 3/Vite/TypeScript and Laravel 13 are initialized. CI checks documentation, builds the development toolchain image, builds/type-checks Vue, and runs Laravel's starter tests. Vue includes the initial barebones storefront layouts; functional commerce features remain separate work, tracked in [the published GitHub backlog](github-issue-drafts.md).
+Vue 3/Vite/TypeScript and Laravel 13 are initialized. CI checks documentation, builds the development toolchain image, builds/type-checks Vue, and runs Laravel's test suite, including demo seed and public health checks. Vue includes the initial barebones storefront layouts; functional commerce features remain separate work, tracked in [the published GitHub backlog](github-issue-drafts.md).
 
 ## GitHub Actions
 
@@ -11,7 +11,7 @@ Vue 3/Vite/TypeScript and Laravel 13 are initialized. CI checks documentation, b
 It has two checks:
 
 - **Markdown lint**: runs `markdownlint-cli2` version `0.23.3` against the repository's Markdown. The root configuration permits long prose lines and unaligned Markdown table columns; other default rules remain enabled.
-- **Docker build and application checks**: builds the root Dockerfile and verifies its tools, non-root user, writable workspace, and baseline PHP extensions. Separate disposable containers run `npm ci`/`npm run build` in `frontend/`, and Composer validation/install plus Laravel's starter tests in `backend/`.
+- **Docker build and application checks**: builds the root Dockerfile and verifies its tools, non-root user, writable workspace, and baseline PHP extensions. Separate disposable containers run `npm ci`/`npm run build` in `frontend/`, and Composer validation/install plus Laravel's tests in `backend/`.
 
 The backend test container creates its own `.env` and application key. PHPUnit uses in-memory SQLite; development databases and keys are excluded from the image. Dependency lockfiles are installed without updating their versions.
 
@@ -64,7 +64,7 @@ To serve the apps from a bind-mounted container, also publish ports with `-p 517
 ## Extending application checks
 
 - Keep frontend/backend manifests and lockfiles synchronized and committed. The current workflow installs both lockfiles and runs their starter checks.
-- Add frontend interaction tests and backend feature tests as actual behavior is implemented. The current frontend build includes TypeScript checking; Laravel includes its default starter tests only.
+- Add frontend interaction tests and backend feature tests as actual behavior is implemented. The current frontend build includes TypeScript checking; Laravel tests include the demo catalog seed's contents/repeatability and public readiness/health responses.
 - Keep tests independent of real payments and real customer data. Add application-specific services, extensions, ports, and runtime images only when their requirements are established.
 
 Do not treat the starter checks as commerce test coverage. SQLite is a local development/test default; production database and hosting decisions remain open. Docker build/container execution cannot be verified on a host without Docker, even when the equivalent local build/test commands pass.
