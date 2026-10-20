@@ -2,7 +2,7 @@
 
 A Vue 3/Vite/TypeScript frontend and Laravel 13 backend for an e-commerce school project, with GitHub Actions CI and a Docker development toolchain.
 
-Both frameworks are initialized with locked dependencies. Vue includes five barebones, clickable storefront layouts; Laravel exposes readiness endpoints. Commerce behavior and administrator features remain planned work. See the [frontend guide](frontend/README.md#layout-preview) for preview routes and limitations. Existing folder READMEs describe their intended responsibilities.
+Both frameworks are initialized with locked dependencies. Vue includes five barebones, clickable storefront layouts; Laravel exposes readiness endpoints and a repeatable one-garment database seed. [API contracts](docs/api.md) define the planned commerce and administrator behavior. See the [frontend guide](frontend/README.md#layout-preview) for preview routes and limitations, and the [backend guide](backend/README.md#migrate-and-seed-the-demo-catalog) for migration/seed commands. Existing folder READMEs describe their intended responsibilities.
 
 ## Local development
 

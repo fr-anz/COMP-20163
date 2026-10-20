@@ -6,7 +6,7 @@ Define the minimal layout-first UI milestone for a single-store thrift clothing 
 
 ## Current Behavior
 
-The repository contains initialized Vue 3/Vite/TypeScript and Laravel 13 applications, preserved folder documentation, planning documents and a linked GitHub issue backlog, and CI/Docker tooling. Dependency manifests and lockfiles are present. Vue now provides home, catalog, product detail, sample bag, and guest checkout layouts using Vue Router hash history and one shared garment fixture. Navigation, image/viewer presentation, measurements disclosure, and shipping/pickup presentation work; commerce actions are labeled placeholders. Laravel returns readiness JSON at `/` and serves its standard health route at `/up`. CI checks Markdown, builds the Docker development image, builds/type-checks Vue, and runs Laravel starter tests. Commerce behavior remains unimplemented. See the [frontend guide](../frontend/README.md#layout-preview).
+The repository contains initialized Vue 3/Vite/TypeScript and Laravel 13 applications, preserved folder documentation, planning documents and a linked GitHub issue backlog, and CI/Docker tooling. Dependency manifests and lockfiles are present. Vue now provides home, catalog, product detail, sample bag, and guest checkout layouts using Vue Router hash history and one shared garment fixture. Navigation, image/viewer presentation, measurements disclosure, and shipping/pickup presentation work; commerce actions are labeled placeholders. Laravel returns readiness JSON at `/`, serves its standard health route at `/up`, and provides a repeatable one-garment database seed. CI checks Markdown, builds the Docker development image, builds/type-checks Vue, and runs Laravel tests including seed and health checks. Commerce behavior remains unimplemented. See the [frontend guide](../frontend/README.md#layout-preview) and [API contracts](api.md).
 
 ## Target Behavior
 
@@ -67,9 +67,9 @@ Stores, API services, real model assets, and `backend/` belong to later function
 
 ## Assumptions
 
-The following product defaults remain proposed rather than confirmed: PHP means Philippine pesos; the domestic market is the Philippines; and an internal payment simulator is sufficient for the later functional milestone. Vue/Laravel are now initialized. A temporary brand, sample shipping charge, and pickup location must be clearly identified as demonstration content.
+PHP means Philippine pesos; the domestic market is the Philippines; and payments use an internal simulator, as confirmed for issue #1. Vue/Laravel are initialized. A temporary brand, sample shipping charge, and pickup location must be clearly identified as demonstration content. Functional backend contracts are recorded in [the API agreement](api.md).
 
-For the backend backlog, propose that cart membership does not reserve inventory and successful simulated checkout atomically sells each garment. A competing checkout must fail without confirming a second order or charging anything. Real 3D model sourcing and its rendering library are later implementation choices, subject to reuse rights and compatibility checks. These decisions do not need implementation to review content placement.
+For the backend backlog, cart membership does not reserve inventory and successful simulated checkout atomically sells each garment. A competing checkout must fail without confirming a second order or charging anything. Real 3D model sourcing and its rendering library are later implementation choices, subject to reuse rights and compatibility checks. These decisions do not need implementation to review content placement.
 
 ## Step-by-Step Implementation
 

@@ -18,16 +18,14 @@
 - Customer checkout is available to guests; customer accounts are not required.
 - This is a school project. Payments are simulated or use a sandbox; no live payment collection is required.
 - Checkout offers domestic shipping and pickup.
+- Currency is PHP (Philippine pesos); shipping is local to the Philippines. The school project uses an internal payment simulator. Successful simulated checkout confirms the purchase and marks its garments sold; unsuccessful checkout leaves them available. Cart membership does not reserve stock.
 - Management access is limited to an administrator. Additional staff roles are out of scope for now. Administrator screens belong in the team backlog, outside the current customer-facing visual milestone.
 - Visual direction: the user now requests copying [Bellows Film Lab](https://bellowsfilmlab.com/)'s page layout and navbar, retaining a different masthead and omitting the automatic video popup. Use white surfaces, gray image areas, a four-column desktop/two-column mobile product grid, compact captions, and the reference's section order with photo/map placeholders. Keep exactly one garment in the grid. Match the green floating Menu/Bag controls, blue Search, and separate green pill menu links; on mobile the closed navbar is a centered Menu button, with links, Bag, and Search revealed when opened.
 - Apply the better-ui skill when implementing layouts. No eyebrows above headings; use solid backgrounds and simple dividers. Avoid excessive gradients, glows, heavy shadows, oversized rounded cards, decorative badges, unnecessary animation, and filler sections. Preserve normal labels, breadcrumbs, and useful product metadata.
-- Vue 3/Vite/TypeScript, Vue Router, and Laravel 13 have dependency lockfiles and starter checks. Vue provides the layout preview; Laravel exposes readiness endpoints. No commerce endpoints are implemented.
+- Vue 3/Vite/TypeScript, Vue Router, and Laravel 13 have dependency lockfiles and checks. Vue provides the layout preview; Laravel exposes readiness endpoints and a repeatable one-garment demo seed. [API contracts](api.md) describe dependent commerce work; no commerce endpoints are implemented.
 
 ## Proposed defaults for final review
 
-- Interpret PHP as Philippine pesos and use the Philippines as the domestic market.
-- Prefer an internal payment simulator for the school project, avoiding an external payment provider dependency. Never collect card details or real payments.
-- For MVP v1, adding a garment to a cart does not reserve it. A successful simulated checkout atomically confirms the order and marks its listings sold out; unsuccessful checkout leaves them available. Only one order can successfully purchase a given garment. These proposed rules may be revisited as later versions' inventory requirements develop.
 - Use an explicitly labeled demonstration shipping charge and pickup location until the team configures them. Pickup has no shipping charge. These are sample values, not real delivery promises.
 - Use a temporary, easily replaceable store name and sample garment content; these do not establish a permanent brand or niche.
 - For the later functional viewer, use one sample garment model with appropriate reuse rights and record its source. A visually accurate digital twin of a physical thrift garment is not required. No real model asset is needed for the layout milestone.
